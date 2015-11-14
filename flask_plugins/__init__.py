@@ -61,7 +61,7 @@ class Plugin(object):
         #: path.
         self.path = os.path.abspath(path)
 
-        with open(os.path.join(path, 'info.json')) as fd:
+        with open(os.path.join(self.path, 'info.json')) as fd:
             self.info = i = json.load(fd)
 
         #: The plugin's name, as given in info.json. This is the human
@@ -181,6 +181,8 @@ class PluginManager(object):
 
         self.app = app
 
+        if base_app_folder is None:
+            base_app_folder = os.path.split(self.app.root_path)[-1]
 
         self.plugin_folder = os.path.join(self.app.root_path, plugin_folder)
         self.base_plugin_package = ".".join(
